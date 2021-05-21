@@ -122,5 +122,3 @@ typings/
 *.pot~
 *.po~
 *.mo~
-
-vendor/
