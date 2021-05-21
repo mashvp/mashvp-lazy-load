@@ -1,0 +1,71 @@
+{
+  "name": "mashvp-lazy-load",
+  "version": "0.1.0-alpha.0",
+  "description": "Lazy load images with BlurHash",
+  "main": "js/index.js",
+  "author": "Mashvp",
+  "license": "MIT",
+  "scripts": {
+    "sass-admin": "node-sass styles/admin.scss dist/admin.css --include-path ./node_modules --output-style compressed",
+    "watch-sass-admin": "node-sass-chokidar -w styles/admin.scss dist/admin.css --include-path ./node_modules --output-style nested --source-map true",
+    "sass-front": "node-sass styles/front.scss dist/front.css --include-path ./node_modules --output-style compressed",
+    "watch-sass-front": "node-sass-chokidar -w styles/front.scss dist/front.css --include-path ./node_modules --output-style nested --source-map true",
+    "sass": "concurrently 'npm:sass-admin' 'npm:sass-front'",
+    "watch-sass": "concurrently 'npm:watch-sass-admin' 'npm:watch-sass-front'",
+    "js": "rm -f js/chunks/* && webpack --mode production",
+    "watch-js": "rm -f js/chunks/* && webpack --watch --mode development",
+    "watch": "concurrently 'npm:watch-sass' 'npm:watch-js'",
+    "build": "concurrently 'npm:sass' 'npm:js'",
+    "tr": "po2json languages/mashvp-forms-fr_FR.po languages/mashvp-forms-fr_FR-mashvp-forms--admin-script.json -d mashvp-forms -f jed1.x",
+    "test": "jest"
+  },
+  "jest": {
+    "testRegex": [
+      "js/tests/.*-test\\.js"
+    ],
+    "setupFiles": [
+      "./js/tests/setup.js"
+    ],
+    "roots": [
+      "js/tests"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "js/controllers"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-react": "^7.12.7",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.2",
+    "concurrently": "^5.3.0",
+    "eslint": "^7.14.0",
+    "eslint-plugin-react": "^7.21.5",
+    "jest": "^26.6.3",
+    "mutationobserver-shim": "^0.3.7",
+    "node-sass": "^5.0.0",
+    "node-sass-chokidar": "^1.5.0",
+    "po2json": "^0.4.5",
+    "terser-webpack-plugin": "^5.0.3",
+    "webpack": "^5.8.0",
+    "webpack-cli": "^4.2.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.12.5",
+    "blurhash": "^1.1.3",
+    "classnames": "^2.2.6",
+    "lodash.camelcase": "^4.3.0",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.escape": "^4.0.1",
+    "lodash.isplainobject": "^4.0.6",
+    "prop-types": "^15.7.2",
+    "pubsub-js": "^1.9.1",
+    "stimulus": "^2.0.0",
+    "uuid": "^8.3.1"
+  }
+}
