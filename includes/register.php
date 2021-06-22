@@ -171,12 +171,24 @@ if (!function_exists('mvplzl__blurhash_image')) {
     function mvplzl__blurhash_image($attachment_id, $args)
     {
         $args = wp_parse_args($args, [
-            'size'   => 'full',
-            'format' => 'auto',
+            'size'            => 'full',
+            'format'          => 'auto',
+            'html_attributes' => [],
         ]);
 
         $size   = mvplzl__array_safe_get($args, 'size');
         $format = mvplzl__array_safe_get($args, 'format');
+
+        $html_attrs = mvplzl__array_safe_get($args, 'html_attributes');
+        $html_attrs = implode(
+            ' ',
+            array_map(function($key, $value) {
+                $key = esc_attr($key);
+                $value = esc_attr($value);
+
+                return "$key=\"$value\"";
+            }, array_keys($html_attrs), $html_attrs)
+        );
 
         if (get_post_type($attachment_id) === 'attachment') {
             $src_full            = wp_get_attachment_image_src($attachment_id, 'full');
@@ -229,6 +241,7 @@ if (!function_exists('mvplzl__blurhash_image')) {
                         data-mvplzl--lazy-load-alt-value="$alt"
                         data-mvplzl--lazy-load-caption-value="$caption"
                         style="--aspect-ratio: $width / $height; --height-percent: {$height_percent}%"
+                        $html_attrs
                     >
                         <canvas width="32" height="32" data-mvplzl--lazy-load-target="canvas"></canvas>
                         <img src="" alt="$alt" data-mvplzl--lazy-load-target="image" data-action="load->mvplzl--lazy-load#loaded">
@@ -241,6 +254,7 @@ if (!function_exists('mvplzl__blurhash_image')) {
                     <figure
                         class="image-wrapper format-{$format} mvplzl mvplzl__image mvplzl__image--no-blurhash"
                         style="--aspect-ratio: $width / $height; --height-percent: {$height_percent}%"
+                        $html_attrs
                     >
                         <img src="$url" alt="$alt">
                     </figure>
