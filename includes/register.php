@@ -182,7 +182,7 @@ if (!function_exists('mvplzl__blurhash_image')) {
         $html_attrs = mvplzl__array_safe_get($args, 'html_attributes');
         $html_attrs = implode(
             ' ',
-            array_map(function($key, $value) {
+            array_map(function ($key, $value) {
                 $key = esc_attr($key);
                 $value = esc_attr($value);
 
@@ -200,7 +200,11 @@ if (!function_exists('mvplzl__blurhash_image')) {
             $url            = esc_attr($src[0]);
             $width          = esc_attr($src[1]);
             $height         = esc_attr($src[2]);
-            $height_percent = $height / $width * 100;
+            $height_percent = 100;
+
+            if (is_numeric($height) && is_numeric($width) && $width !== 0) {
+                $height_percent = $height / $width * 100;
+            }
 
             $alt      = esc_attr(mvplzl__attachment_alt($attachment_id));
             $caption  = esc_attr(wp_get_attachment_caption($attachment_id));
