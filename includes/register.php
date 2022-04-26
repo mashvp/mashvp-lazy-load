@@ -180,10 +180,17 @@ if (!function_exists('mvplzl__blurhash_image')) {
         $format = mvplzl__array_safe_get($args, 'format');
 
         $html_attrs = mvplzl__array_safe_get($args, 'html_attributes');
+        $additional_classes = '';
+
+        if (isset($html_attrs['class'])) {
+            $additional_classes = $html_attrs['class'];
+            unset($html_attrs['class']);
+        }
+
         $html_attrs = implode(
             ' ',
             array_map(function ($key, $value) {
-                $key = esc_attr($key);
+                $key   = esc_attr($key);
                 $value = esc_attr($value);
 
                 return "$key=\"$value\"";
@@ -229,9 +236,22 @@ if (!function_exists('mvplzl__blurhash_image')) {
                 $components_y = esc_attr(mvplzl__array_safe_get($blurhash, 'y'));
                 $hash         = esc_attr(mvplzl__array_safe_get($blurhash, 'hash'));
 
+                $classes = esc_attr(
+                    implode(' ', array_filter(
+                        [
+                            'image-wrapper',
+                            "format-{$format}",
+                            'mvplzl',
+                            'mvplzl__image',
+                            'mvplzl__image--blurhash',
+                            $additional_classes
+                        ]
+                    ))
+                );
+
                 echo <<<HTML
                     <figure
-                        class="image-wrapper format-{$format} mvplzl mvplzl__image mvplzl__image--blurhash"
+                        class="$classes"
                         data-controller="mvplzl--lazy-load"
                         data-mvplzl--lazy-load-components-x-value="$components_x"
                         data-mvplzl--lazy-load-components-y-value="$components_y"
@@ -254,9 +274,22 @@ if (!function_exists('mvplzl__blurhash_image')) {
                     </figure>
                 HTML;
             } else {
+                $classes = esc_attr(
+                    implode(' ', array_filter(
+                        [
+                            'image-wrapper',
+                            "format-{$format}",
+                            'mvplzl',
+                            'mvplzl__image',
+                            'mvplzl__image--no-blurhash',
+                            $additional_classes
+                        ]
+                    ))
+                );
+
                 echo <<<HTML
                     <figure
-                        class="image-wrapper format-{$format} mvplzl mvplzl__image mvplzl__image--no-blurhash"
+                        class="$classes"
                         style="--aspect-ratio: $width / $height; --height-percent: {$height_percent}%"
                         $html_attrs
                     >
