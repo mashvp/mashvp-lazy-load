@@ -219,9 +219,22 @@ if (!function_exists('mvplzl__blurhash_image')) {
             $blurhash = mvplzl__array_safe_get($meta, 'blurhash');
 
             if (is_admin()) {
+                $classes = esc_attr(
+                    implode(' ', array_filter(
+                        [
+                            'image-wrapper',
+                            "format-{$format}",
+                            'mvplzl',
+                            'mvplzl__image',
+                            'mvplzl__image--admin',
+                            $additional_classes
+                        ]
+                    ))
+                );
+
                 echo <<<HTML
                     <figure
-                        class="image-wrapper format-{$format} mvplzl mvplzl__image mvplzl__image--admin"
+                        class="$classes"
                         style="--aspect-ratio: $width / $height; --height-percent: {$height_percent}%"
                     >
                         <img src="$url" alt="$alt">
