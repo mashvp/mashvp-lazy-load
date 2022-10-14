@@ -122,3 +122,7 @@ typings/
 *.pot~
 *.po~
 *.mo~
+
+### Project-specific ignores ###
+
+__wordpress/

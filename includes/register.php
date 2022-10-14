@@ -173,6 +173,7 @@ if (!function_exists('mvplzl__blurhash_image')) {
         $args = wp_parse_args($args, [
             'size'            => 'full',
             'format'          => 'auto',
+            'caption'         => null,
             'html_attributes' => [],
         ]);
 
@@ -214,7 +215,7 @@ if (!function_exists('mvplzl__blurhash_image')) {
             }
 
             $alt      = esc_attr(mvplzl__attachment_alt($attachment_id));
-            $caption  = esc_attr(wp_get_attachment_caption($attachment_id));
+            $caption  = mvplzl__array_safe_get($args, 'caption') ?? esc_attr(wp_get_attachment_caption($attachment_id));
             $meta     = wp_get_attachment_metadata($attachment_id);
             $blurhash = mvplzl__array_safe_get($meta, 'blurhash');
 
