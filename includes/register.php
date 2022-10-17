@@ -219,6 +219,13 @@ if (!function_exists('mvplzl__blurhash_image')) {
             $meta     = wp_get_attachment_metadata($attachment_id);
             $blurhash = mvplzl__array_safe_get($meta, 'blurhash');
 
+            $caption_template = '';
+            if ($caption) {
+                $caption_template = <<<HTML
+                    <figcaption>{$caption}</figcaption>
+                HTML;
+            }
+
             if (is_admin()) {
                 $classes = esc_attr(
                     implode(' ', array_filter(
@@ -237,8 +244,10 @@ if (!function_exists('mvplzl__blurhash_image')) {
                     <figure
                         class="$classes"
                         style="--aspect-ratio: $width / $height; --height-percent: {$height_percent}%"
+                        $html_attrs
                     >
                         <img src="$url" alt="$alt">
+                        $caption_template
                     </figure>
                 HTML;
 
@@ -283,8 +292,7 @@ if (!function_exists('mvplzl__blurhash_image')) {
                     >
                         <canvas width="32" height="32" data-mvplzl--lazy-load-target="canvas"></canvas>
                         <img src="" alt="$alt" data-mvplzl--lazy-load-target="image" data-action="load->mvplzl--lazy-load#loaded">
-
-                        <figcaption>$caption</figcaption>
+                        $caption_template
                     </figure>
                 HTML;
             } else {
@@ -308,6 +316,7 @@ if (!function_exists('mvplzl__blurhash_image')) {
                         $html_attrs
                     >
                         <img src="$url" alt="$alt">
+                        $caption_template
                     </figure>
                 HTML;
             }
