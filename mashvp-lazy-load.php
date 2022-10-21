@@ -4,7 +4,7 @@
  * Plugin Name: Mashvp — Lazy Load
  * Plugin URI: http://mashvp.com
  * Description: Lazy load images with BlurHash
- * Version: 0.1.4
+ * Version: 0.1.5
  * Author: Mashvp
  * Author URI: http://mashvp.com
  * Text Domain: mashvp-lazy-load
@@ -19,7 +19,7 @@ if (defined('MASHVP_LAZY_LOAD')) {
 }
 
 define('MASHVP_LAZY_LOAD', true);
-define('MASHVP_LAZY_LOAD__VERSION', '0.1.4');
+define('MASHVP_LAZY_LOAD__VERSION', '0.1.5');
 define('MASHVP_LAZY_LOAD__DIR', basename(dirname(__FILE__)));
 define('MASHVP_LAZY_LOAD__PATH', plugin_dir_path(__FILE__));
 

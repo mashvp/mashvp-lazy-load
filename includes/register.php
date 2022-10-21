@@ -286,7 +286,6 @@ if (!function_exists('mvplzl__blurhash_image')) {
                         data-mvplzl--lazy-load-image-width-full-value="$width_full"
                         data-mvplzl--lazy-load-image-height-full-value="$height_full"
                         data-mvplzl--lazy-load-alt-value="$alt"
-                        data-mvplzl--lazy-load-caption-value="$caption"
                         style="--aspect-ratio: $width / $height; --height-percent: {$height_percent}%"
                         $html_attrs
                     >
